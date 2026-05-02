@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #030407;
+  color: white;
+  font-family: Inter, system-ui, sans-serif;
+}
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 52px 52px;
+}
+.card {
+  background: linear-gradient(180deg, rgba(15,18,28,.82), rgba(7,9,15,.86));
+  border: 1px solid rgba(255,255,255,.09);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+}
+.text-gradient {
+  background: linear-gradient(90deg, #2f7cff, #8c3dff, #b657ff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.btn-gradient {
+  background: linear-gradient(90deg, #226cff, #8c37ff);
+}
+.glass {
+  background: rgba(10, 13, 22, .72);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,.09);
+}
