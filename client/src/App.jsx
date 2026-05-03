@@ -29,9 +29,9 @@ const projects = [
 ];
 
 const plans = [
-  { name: "BÁSICO", price: "99", features: ["Site Institucional", "Até 5 Páginas", "Hospedagem Inclusa", "Suporte por E-mail"] },
-  { name: "PROFISSIONAL", price: "199", popular: true, features: ["Site Profissional", "Até 10 Páginas", "Hospedagem + Domínio", "Suporte Prioritário", "SEO Básico"] },
-  { name: "PREMIUM", price: "299", features: ["Site Personalizado", "Páginas ilimitadas", "Hospedagem + Domínio", "Suporte 24/7", "SEO Avançado", "Integrações"] },
+  { name: "BÁSICO", price: "99", features: ["Site Institucional", "Até 5 Páginas", "Suporte por E-mail"] },
+  { name: "PROFISSIONAL", price: "199", popular: true, features: ["Site Profissional", "Até 10 Páginas", "Suporte Prioritário", "SEO Básico"] },
+  { name: "PREMIUM", price: "299", features: ["Site Personalizado", "Páginas ilimitadas", "Suporte 24/7", "SEO Avançado", "Integrações"] },
 ];
 
 const whatsappNumber = "5511999999999";
@@ -41,7 +41,7 @@ const getWhatsappLink = (planName, price) => {
   return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 };
 
-const companyEmail = "contato@devxsolutions.com";
+const companyEmail = "contato.devxsolutions@gmail.com";
 const instagramUrl = "https://www.instagram.com/devxsolutions";
 const linkedinUrl = "https://www.linkedin.com/company/devxsolutions";
 const githubUrl = "https://github.com/devxsolutions";
