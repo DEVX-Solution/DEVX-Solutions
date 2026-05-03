@@ -21,11 +21,11 @@ const techs = [
 ];
 
 const projects = [
-  { title: "RocketFit", type: "Landing Page", img: "https://images.unsplash.com/photo-1571019613914-85f342c6a11e?q=80&w=900&auto=format&fit=crop", tags: ["React", "Next.js"], link: "#" },
-  { title: "Studio N.", type: "Site Institucional", img: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?q=80&w=900&auto=format&fit=crop", tags: ["WordPress", "PHP"], link: "#" },
-  { title: "Elevate", type: "Web Design", img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=900&auto=format&fit=crop", tags: ["React", "Tailwind"], link: "#" },
-  { title: "Vision", type: "Landing Page", img: "https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?q=80&w=900&auto=format&fit=crop", tags: ["Next.js", "TypeScript"], link: "#" },
-  { title: "Pizza House", type: "Site Delivery", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=900&auto=format&fit=crop", tags: ["React", "Node.js"], link: "#" },
+  { title: "RocketFit", type: "Landing Page", img: "https://images.unsplash.com/photo-1571019613914-85f342c6a11e?q=80&w=900&auto=format&fit=crop", tags: ["React", "Next.js"], link: "https://rocketfit.vercel.app" },
+  { title: "Studio N.", type: "Site Institucional", img: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?q=80&w=900&auto=format&fit=crop", tags: ["WordPress", "PHP"], link: "https://studio-n.vercel.app" },
+  { title: "Elevate", type: "Web Design", img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=900&auto=format&fit=crop", tags: ["React", "Tailwind"], link: "https://elevate-phi-henna.vercel.app" },
+  { title: "Vision", type: "Landing Page", img: "https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?q=80&w=900&auto=format&fit=crop", tags: ["Next.js", "TypeScript"], link: "https://vision-one-chi.vercel.app" },
+  { title: "Pizza House", type: "Site Delivery", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=900&auto=format&fit=crop", tags: ["React", "Node.js"], link: "https://pizza-house-one.vercel.app" },
 ];
 
 const plans = [
