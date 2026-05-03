@@ -346,70 +346,70 @@ const navClass = (id) =>
         </div>
       </section>
 
-      <section id="contato" className="mx-auto max-w-7xl px-8 py-14">
-        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#090d17] p-12">
-          <div className="absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-purple-700/45 to-transparent" />
+      <section id="contato" className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#090d17] p-5 sm:p-8 lg:p-12">
+          <div className="absolute right-0 top-0 h-full w-full bg-gradient-to-l from-purple-700/35 to-transparent sm:w-1/2 sm:from-purple-700/45" />
           <div className="absolute -left-20 -top-20 h-72 w-72 rounded-full bg-blue-700/20 blur-[90px]" />
 
-          <div className="relative grid gap-12 lg:grid-cols-[.9fr_1.35fr] lg:items-center">
+          <div className="relative grid gap-8 lg:grid-cols-[.9fr_1.35fr] lg:items-center lg:gap-12">
             <div>
-              <p className="mb-4 text-sm font-bold uppercase tracking-wider text-blue-400">Vamos conversar?</p>
-              <h2 className="text-4xl font-black leading-tight md:text-5xl">
+              <p className="mb-4 text-xs font-bold uppercase tracking-wider text-blue-400 sm:text-sm">Vamos conversar?</p>
+              <h2 className="max-w-xl text-3xl font-black leading-tight sm:text-4xl md:text-5xl">
                 Fale com a gente pelo canal que preferir.
               </h2>
-              <p className="mt-6 max-w-lg text-lg leading-relaxed text-white/60">
+              <p className="mt-5 max-w-lg text-base leading-relaxed text-white/60 sm:text-lg">
                 Escolha uma das opções de sua preferência e chame a DEVX Solutions para transformar sua ideia em um site profissional.
               </p>
             </div>
 
-            <div className="grid gap-5">
+            <div className="grid gap-4 sm:gap-5">
               <a
                 href={getWhatsappLink("Contato pelo site", "0")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-6 rounded-2xl border border-white/10 bg-black/30 p-6 transition-all duration-300 hover:-translate-y-2 hover:border-green-400/70 hover:bg-green-500/10 hover:shadow-blueglow"
+                className="group flex min-w-0 items-center gap-4 rounded-2xl border border-white/10 bg-black/30 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-green-400/70 hover:bg-green-500/10 hover:shadow-blueglow sm:gap-6 sm:p-6 lg:hover:-translate-y-2"
               >
-                <div className="grid h-16 w-16 place-items-center rounded-2xl border border-green-400/30 bg-green-500/10 text-green-400 transition group-hover:scale-110">
-                  <MessageCircle size={32} />
+                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-green-400/30 bg-green-500/10 text-green-400 transition group-hover:scale-110 sm:h-16 sm:w-16">
+                  <MessageCircle size={28} className="sm:h-8 sm:w-8" />
                 </div>
-                <div>
-                  <p className="text-sm font-bold uppercase tracking-wider text-green-400">WhatsApp</p>
-                  <h3 className="mt-1 text-2xl font-black">(11) 99999-9999</h3>
-                  <span className="mt-2 block text-sm text-white/50">Clique para chamar agora</span>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-bold uppercase tracking-wider text-green-400 sm:text-sm">WhatsApp</p>
+                  <h3 className="mt-1 truncate text-lg font-black sm:text-2xl">(11) 99999-9999</h3>
+                  <span className="mt-1 block text-xs text-white/50 sm:mt-2 sm:text-sm">Clique para chamar agora</span>
                 </div>
-                <ArrowRight className="ml-auto text-white/40 transition group-hover:translate-x-1 group-hover:text-green-400" />
+                <ArrowRight className="hidden shrink-0 text-white/40 transition group-hover:translate-x-1 group-hover:text-green-400 sm:block" />
               </a>
 
               <a
                 href={`mailto:${companyEmail}?subject=Orçamento DEVX Solutions`}
-                className="group flex items-center gap-6 rounded-2xl border border-white/10 bg-black/30 p-6 transition-all duration-300 hover:-translate-y-2 hover:border-purple-400/70 hover:bg-purple-500/10 hover:shadow-blueglow"
+                className="group flex min-w-0 items-center gap-4 rounded-2xl border border-white/10 bg-black/30 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-purple-400/70 hover:bg-purple-500/10 hover:shadow-blueglow sm:gap-6 sm:p-6 lg:hover:-translate-y-2"
               >
-                <div className="grid h-16 w-16 place-items-center rounded-2xl border border-purple-400/30 bg-purple-500/10 text-purple-400 transition group-hover:scale-110">
-                  <Mail size={32} />
+                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-purple-400/30 bg-purple-500/10 text-purple-400 transition group-hover:scale-110 sm:h-16 sm:w-16">
+                  <Mail size={28} className="sm:h-8 sm:w-8" />
                 </div>
-                <div>
-                  <p className="text-sm font-bold uppercase tracking-wider text-purple-400">E-mail</p>
-                  <h3 className="mt-1 text-2xl font-black">{companyEmail}</h3>
-                  <span className="mt-2 block text-sm text-white/50">Clique para enviar um e-mail</span>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-bold uppercase tracking-wider text-purple-400 sm:text-sm">E-mail</p>
+                  <h3 className="mt-1 break-words text-base font-black leading-snug sm:text-2xl">{companyEmail}</h3>
+                  <span className="mt-1 block text-xs text-white/50 sm:mt-2 sm:text-sm">Clique para enviar um e-mail</span>
                 </div>
-                <ArrowRight className="ml-auto text-white/40 transition group-hover:translate-x-1 group-hover:text-purple-400" />
+                <ArrowRight className="hidden shrink-0 text-white/40 transition group-hover:translate-x-1 group-hover:text-purple-400 sm:block" />
               </a>
 
               <a
                 href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-6 rounded-2xl border border-white/10 bg-black/30 p-6 transition-all duration-300 hover:-translate-y-2 hover:border-pink-400/70 hover:bg-pink-500/10 hover:shadow-blueglow"
+                className="group flex min-w-0 items-center gap-4 rounded-2xl border border-white/10 bg-black/30 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-pink-400/70 hover:bg-pink-500/10 hover:shadow-blueglow sm:gap-6 sm:p-6 lg:hover:-translate-y-2"
               >
-                <div className="grid h-16 w-16 place-items-center rounded-2xl border border-pink-400/30 bg-pink-500/10 text-pink-400 transition group-hover:scale-110">
-                  <Instagram size={32} />
+                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-pink-400/30 bg-pink-500/10 text-pink-400 transition group-hover:scale-110 sm:h-16 sm:w-16">
+                  <Instagram size={28} className="sm:h-8 sm:w-8" />
                 </div>
-                <div>
-                  <p className="text-sm font-bold uppercase tracking-wider text-pink-400">Instagram</p>
-                  <h3 className="mt-1 text-2xl font-black">@devxsolutions</h3>
-                  <span className="mt-2 block text-sm text-white/50">Clique para ver nosso perfil</span>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-bold uppercase tracking-wider text-pink-400 sm:text-sm">Instagram</p>
+                  <h3 className="mt-1 truncate text-lg font-black sm:text-2xl">@devxsolutions</h3>
+                  <span className="mt-1 block text-xs text-white/50 sm:mt-2 sm:text-sm">Clique para ver nosso perfil</span>
                 </div>
-                <ArrowRight className="ml-auto text-white/40 transition group-hover:translate-x-1 group-hover:text-pink-400" />
+                <ArrowRight className="hidden shrink-0 text-white/40 transition group-hover:translate-x-1 group-hover:text-pink-400 sm:block" />
               </a>
             </div>
           </div>
