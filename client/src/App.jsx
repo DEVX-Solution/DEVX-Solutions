@@ -428,7 +428,7 @@ const navClass = (id) =>
           <div><h3 className="mb-5 font-bold text-blue-400">CONTATO</h3><p className="space-y-4 text-sm text-white/60"><Phone className="mr-2 inline" size={16}/> (11) 99999-9999<br/><Mail className="mr-2 inline" size={16}/> <a href={`mailto:${companyEmail}`} className="hover:text-blue-400">{companyEmail}</a><br/><MapPin className="mr-2 inline" size={16}/> São Paulo - SP</p></div>
         </div>
         <div className="flex justify-between py-8 text-sm text-white/45">
-          <span>© 2024 DEVX Solutions. Todos os direitos reservados.</span>
+          <span>© 2026 DEVX Solutions. Todos os direitos reservados.</span>
           <span>Política de Privacidade &nbsp;&nbsp;&nbsp; Termos de Uso</span>
         </div>
       </footer>
