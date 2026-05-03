@@ -34,7 +34,7 @@ const plans = [
   { name: "PREMIUM", price: "299", features: ["Site Personalizado", "Páginas ilimitadas", "Suporte 24/7", "SEO Avançado", "Integrações"] },
 ];
 
-const whatsappNumber = "5511999999999";
+const whatsappNumber = "5511911908314";
 
 const getWhatsappLink = (planName, price) => {
   const message = `Olá! Tenho interesse no plano ${planName} da DEVX Solutions por R$ ${price}/mês. Pode me passar mais detalhes?`;
