@@ -374,7 +374,7 @@ const navClass = (id) =>
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="text-xs font-bold uppercase tracking-wider text-green-400 sm:text-sm">WhatsApp</p>
-                  <h3 className="mt-1 truncate text-lg font-black sm:text-2xl">(11) 99999-9999</h3>
+                  <h3 className="mt-1 truncate text-lg font-black sm:text-2xl">(11) 91190-8314</h3>
                   <span className="mt-1 block text-xs text-white/50 sm:mt-2 sm:text-sm">Clique para chamar agora</span>
                 </div>
                 <ArrowRight className="hidden shrink-0 text-white/40 transition group-hover:translate-x-1 group-hover:text-green-400 sm:block" />
@@ -425,7 +425,7 @@ const navClass = (id) =>
             </div></div>
           <div><h3 className="mb-5 font-bold text-blue-400">NAVEGAÇÃO</h3><p className="space-y-2 text-sm text-white/60">Início<br/>Serviços<br/>Portfólio<br/>Planos<br/>Tecnologias<br/>Depoimentos<br/>Contato</p></div>
           <div><h3 className="mb-5 font-bold text-blue-400">SERVIÇOS</h3><p className="space-y-2 text-sm text-white/60">Criação de Sites<br/>Lojas Virtuais<br/>Landing Pages<br/>Manutenção de Sites<br/>Otimização (SEO)<br/>Hospedagem e Domínio</p></div>
-          <div><h3 className="mb-5 font-bold text-blue-400">CONTATO</h3><p className="space-y-4 text-sm text-white/60"><Phone className="mr-2 inline" size={16}/> (11) 99999-9999<br/><Mail className="mr-2 inline" size={16}/> <a href={`mailto:${companyEmail}`} className="hover:text-blue-400">{companyEmail}</a><br/><MapPin className="mr-2 inline" size={16}/> São Paulo - SP</p></div>
+          <div><h3 className="mb-5 font-bold text-blue-400">CONTATO</h3><p className="space-y-4 text-sm text-white/60"><Phone className="mr-2 inline" size={16}/> (11) 91190-8314<br/><Mail className="mr-2 inline" size={16}/> <a href={`mailto:${companyEmail}`} className="hover:text-blue-400">{companyEmail}</a><br/><MapPin className="mr-2 inline" size={16}/> São Paulo - SP</p></div>
         </div>
         <div className="flex justify-between py-8 text-sm text-white/45">
           <span>© 2026 DEVX Solutions. Todos os direitos reservados.</span>
