@@ -21,11 +21,11 @@ const techs = [
 ];
 
 const projects = [
-  { title: "RocketFit", type: "Landing Page", img: "https://images.unsplash.com/photo-1571019613914-85f342c6a11e?q=80&w=900&auto=format&fit=crop", tags: ["React", "Next.js"] },
-  { title: "Studio N.", type: "Site Institucional", img: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?q=80&w=900&auto=format&fit=crop", tags: ["WordPress", "PHP"] },
-  { title: "Elevate", type: "Web Design", img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=900&auto=format&fit=crop", tags: ["React", "Tailwind"] },
-  { title: "Vision", type: "Landing Page", img: "https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?q=80&w=900&auto=format&fit=crop", tags: ["Next.js", "TypeScript"] },
-  { title: "Pizza House", type: "Site Delivery", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=900&auto=format&fit=crop", tags: ["React", "Node.js"] },
+  { title: "RocketFit", type: "Landing Page", img: "https://images.unsplash.com/photo-1571019613914-85f342c6a11e?q=80&w=900&auto=format&fit=crop", tags: ["React", "Next.js"], link: "#" },
+  { title: "Studio N.", type: "Site Institucional", img: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?q=80&w=900&auto=format&fit=crop", tags: ["WordPress", "PHP"], link: "#" },
+  { title: "Elevate", type: "Web Design", img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=900&auto=format&fit=crop", tags: ["React", "Tailwind"], link: "#" },
+  { title: "Vision", type: "Landing Page", img: "https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?q=80&w=900&auto=format&fit=crop", tags: ["Next.js", "TypeScript"], link: "#" },
+  { title: "Pizza House", type: "Site Delivery", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=900&auto=format&fit=crop", tags: ["React", "Node.js"], link: "#" },
 ];
 
 const plans = [
@@ -249,14 +249,14 @@ const navClass = (id) =>
           </div>
           <div className="grid gap-6 md:grid-cols-3 lg:grid-cols-5">
             {projects.map((p)=>(
-              <article key={p.title} className="group overflow-hidden rounded-xl border border-white/10 bg-black/35 p-3 transition hover:-translate-y-2 hover:border-blue-500/60">
+              <a key={p.title} href={p.link || "#"} target="_blank" rel="noopener noreferrer" className="group block overflow-hidden rounded-xl border border-white/10 bg-black/35 p-3 transition hover:-translate-y-2 hover:border-blue-500/60 cursor-pointer">
                 <img src={p.img} className="h-36 w-full rounded-lg object-cover opacity-80" />
                 <div className="p-3">
                   <div className="flex items-center justify-between"><h3 className="font-bold">{p.title}</h3><ExternalLink size={17}/></div>
                   <p className="mt-1 text-sm text-white/55">{p.type}</p>
                   <div className="mt-4 flex gap-2">{p.tags.map(t=><span key={t} className="rounded-md border border-white/10 px-2 py-1 text-xs text-white/60">{t}</span>)}</div>
                 </div>
-              </article>
+              </a>
             ))}
           </div>
         </div>
