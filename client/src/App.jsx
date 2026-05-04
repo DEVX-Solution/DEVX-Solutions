@@ -46,6 +46,10 @@ const instagramUrl = "https://www.instagram.com/devxsolutions";
 const linkedinUrl = "https://www.linkedin.com/company/devxsolutions";
 const githubUrl = "https://github.com/devxsolutions";
 
+const openExternalLink = (url) => {
+  window.location.href = url;
+};
+
 const handleContactSubmit = (event) => {
   event.preventDefault();
 
@@ -249,14 +253,18 @@ const navClass = (id) =>
           </div>
           <div className="grid gap-6 md:grid-cols-3 lg:grid-cols-5">
             {projects.map((p)=>(
-              <a key={p.title} href={p.link || "#"} target="_blank" rel="noopener noreferrer" className="group block overflow-hidden rounded-xl border border-white/10 bg-black/35 p-3 transition hover:-translate-y-2 hover:border-blue-500/60 cursor-pointer">
+              <button
+                key={p.title}
+                onClick={() => openExternalLink(p.link)}
+                className="group block overflow-hidden rounded-xl border border-white/10 bg-black/35 p-3 transition hover:-translate-y-2 hover:border-blue-500/60 cursor-pointer text-left w-full"
+              >
                 <img src={p.img} className="h-36 w-full rounded-lg object-cover opacity-80" />
                 <div className="p-3">
                   <div className="flex items-center justify-between"><h3 className="font-bold">{p.title}</h3><ExternalLink size={17}/></div>
                   <p className="mt-1 text-sm text-white/55">{p.type}</p>
                   <div className="mt-4 flex gap-2">{p.tags.map(t=><span key={t} className="rounded-md border border-white/10 px-2 py-1 text-xs text-white/60">{t}</span>)}</div>
                 </div>
-              </a>
+              </button>
             ))}
           </div>
         </div>
@@ -284,10 +292,8 @@ const navClass = (id) =>
               <ul className="mt-8 space-y-4">
                 {plan.features.map(f=><li key={f} className="flex gap-3 text-sm text-white/70"><Check size={18} className="text-blue-400"/>{f}</li>)}
               </ul>
-              <a
-                href={getWhatsappLink(plan.name, plan.price)}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => openExternalLink(getWhatsappLink(plan.name, plan.price))}
                 className={`mt-10 block w-full rounded-lg py-4 text-center text-sm font-black transition-all duration-300 hover:-translate-y-1 hover:shadow-blueglow ${
                   plan.popular
                     ? "btn-gradient"
@@ -295,7 +301,7 @@ const navClass = (id) =>
                 }`}
               >
                 ESCOLHER PLANO
-              </a>
+              </button>
             </div>
           ))}
           <div className="card self-center rounded-2xl p-8">
@@ -338,7 +344,7 @@ const navClass = (id) =>
           ].map(([name, text]) => (
             <div key={name} className="card rounded-2xl p-7 transition hover:-translate-y-2 hover:border-blue-500/60">
               <div className="mb-5 flex gap-1 text-blue-400">★★★★★</div>
-              <p className="text-white/70">“{text}”</p>
+              <p className="text-white/70">"{text}"</p>
               <h3 className="mt-6 font-bold">{name}</h3>
               <span className="text-sm text-white/45">Cliente DEVX Solutions</span>
             </div>
@@ -363,11 +369,9 @@ const navClass = (id) =>
             </div>
 
             <div className="grid gap-4 sm:gap-5">
-              <a
-                href={getWhatsappLink("Contato pelo site", "0")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex min-w-0 items-center gap-4 rounded-2xl border border-white/10 bg-black/30 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-green-400/70 hover:bg-green-500/10 hover:shadow-blueglow sm:gap-6 sm:p-6 lg:hover:-translate-y-2"
+              <button
+                onClick={() => openExternalLink(getWhatsappLink("Contato pelo site", "0"))}
+                className="group flex min-w-0 items-center gap-4 rounded-2xl border border-white/10 bg-black/30 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-green-400/70 hover:bg-green-500/10 hover:shadow-blueglow sm:gap-6 sm:p-6 lg:hover:-translate-y-2 text-left w-full"
               >
                 <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-green-400/30 bg-green-500/10 text-green-400 transition group-hover:scale-110 sm:h-16 sm:w-16">
                   <MessageCircle size={28} className="sm:h-8 sm:w-8" />
@@ -378,11 +382,11 @@ const navClass = (id) =>
                   <span className="mt-1 block text-xs text-white/50 sm:mt-2 sm:text-sm">Clique para chamar agora</span>
                 </div>
                 <ArrowRight className="hidden shrink-0 text-white/40 transition group-hover:translate-x-1 group-hover:text-green-400 sm:block" />
-              </a>
+              </button>
 
-              <a
-                href={`mailto:${companyEmail}?subject=Orçamento DEVX Solutions`}
-                className="group flex min-w-0 items-center gap-4 rounded-2xl border border-white/10 bg-black/30 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-purple-400/70 hover:bg-purple-500/10 hover:shadow-blueglow sm:gap-6 sm:p-6 lg:hover:-translate-y-2"
+              <button
+                onClick={() => openExternalLink(`mailto:${companyEmail}?subject=Orçamento DEVX Solutions`)}
+                className="group flex min-w-0 items-center gap-4 rounded-2xl border border-white/10 bg-black/30 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-purple-400/70 hover:bg-purple-500/10 hover:shadow-blueglow sm:gap-6 sm:p-6 lg:hover:-translate-y-2 text-left w-full"
               >
                 <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-purple-400/30 bg-purple-500/10 text-purple-400 transition group-hover:scale-110 sm:h-16 sm:w-16">
                   <Mail size={28} className="sm:h-8 sm:w-8" />
@@ -393,13 +397,11 @@ const navClass = (id) =>
                   <span className="mt-1 block text-xs text-white/50 sm:mt-2 sm:text-sm">Clique para enviar um e-mail</span>
                 </div>
                 <ArrowRight className="hidden shrink-0 text-white/40 transition group-hover:translate-x-1 group-hover:text-purple-400 sm:block" />
-              </a>
+              </button>
 
-              <a
-                href={instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex min-w-0 items-center gap-4 rounded-2xl border border-white/10 bg-black/30 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-pink-400/70 hover:bg-pink-500/10 hover:shadow-blueglow sm:gap-6 sm:p-6 lg:hover:-translate-y-2"
+              <button
+                onClick={() => openExternalLink(instagramUrl)}
+                className="group flex min-w-0 items-center gap-4 rounded-2xl border border-white/10 bg-black/30 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-pink-400/70 hover:bg-pink-500/10 hover:shadow-blueglow sm:gap-6 sm:p-6 lg:hover:-translate-y-2 text-left w-full"
               >
                 <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-pink-400/30 bg-pink-500/10 text-pink-400 transition group-hover:scale-110 sm:h-16 sm:w-16">
                   <Instagram size={28} className="sm:h-8 sm:w-8" />
@@ -410,7 +412,7 @@ const navClass = (id) =>
                   <span className="mt-1 block text-xs text-white/50 sm:mt-2 sm:text-sm">Clique para ver nosso perfil</span>
                 </div>
                 <ArrowRight className="hidden shrink-0 text-white/40 transition group-hover:translate-x-1 group-hover:text-pink-400 sm:block" />
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -419,13 +421,13 @@ const navClass = (id) =>
       <footer className="mx-auto max-w-7xl px-8 pb-10 pt-10">
         <div className="grid gap-12 border-b border-white/10 pb-12 md:grid-cols-4">
           <div><Logo/><p className="mt-6 text-sm leading-relaxed text-white/55">Criamos experiências digitais que conectam marcas e pessoas.</p><div className="mt-7 flex gap-5 text-white/70">
-              <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="transition hover:text-pink-500 hover:scale-110"><Instagram/></a>
-              <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="transition hover:text-blue-400 hover:scale-110"><Linkedin/></a>
-              <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="transition hover:text-white hover:scale-110"><Github/></a>
+              <button onClick={() => openExternalLink(instagramUrl)} className="transition hover:text-pink-500 hover:scale-110"><Instagram/></button>
+              <button onClick={() => openExternalLink(linkedinUrl)} className="transition hover:text-blue-400 hover:scale-110"><Linkedin/></button>
+              <button onClick={() => openExternalLink(githubUrl)} className="transition hover:text-white hover:scale-110"><Github/></button>
             </div></div>
           <div><h3 className="mb-5 font-bold text-blue-400">NAVEGAÇÃO</h3><p className="space-y-2 text-sm text-white/60">Início<br/>Serviços<br/>Portfólio<br/>Planos<br/>Tecnologias<br/>Depoimentos<br/>Contato</p></div>
           <div><h3 className="mb-5 font-bold text-blue-400">SERVIÇOS</h3><p className="space-y-2 text-sm text-white/60">Criação de Sites<br/>Lojas Virtuais<br/>Landing Pages<br/>Manutenção de Sites<br/>Otimização (SEO)<br/>Hospedagem e Domínio</p></div>
-          <div><h3 className="mb-5 font-bold text-blue-400">CONTATO</h3><p className="space-y-4 text-sm text-white/60"><Phone className="mr-2 inline" size={16}/> (11) 91190-8314<br/><Mail className="mr-2 inline" size={16}/> <a href={`mailto:${companyEmail}`} className="hover:text-blue-400">{companyEmail}</a><br/><MapPin className="mr-2 inline" size={16}/> São Paulo - SP</p></div>
+          <div><h3 className="mb-5 font-bold text-blue-400">CONTATO</h3><p className="space-y-4 text-sm text-white/60"><Phone className="mr-2 inline" size={16}/> (11) 91190-8314<br/><Mail className="mr-2 inline" size={16}/> <button onClick={() => openExternalLink(`mailto:${companyEmail}`)} className="hover:text-blue-400">{companyEmail}</button><br/><MapPin className="mr-2 inline" size={16}/> São Paulo - SP</p></div>
         </div>
         <div className="flex justify-between py-8 text-sm text-white/45">
           <span>© 2026 DEVX Solutions. Todos os direitos reservados.</span>
