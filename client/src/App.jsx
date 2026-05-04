@@ -47,7 +47,23 @@ const linkedinUrl = "https://www.linkedin.com/company/devxsolutions";
 const githubUrl = "https://github.com/devxsolutions";
 
 const openExternalLink = (url) => {
-  window.location.href = url;
+  const isInstagramWebView =
+    navigator.userAgent.includes("Instagram") ||
+    navigator.userAgent.includes("FB_IAB") ||
+    navigator.userAgent.includes("FBAN");
+
+  if (isInstagramWebView) {
+    // Android: força abertura no Chrome/navegador padrão
+    const intentUrl = `intent://${url.replace(/^https?:\/\//, "")}#Intent;scheme=https;package=com.android.chrome;end`;
+    window.location.href = intentUrl;
+
+    // Fallback: se não abrir em 1.5s, tenta direto
+    setTimeout(() => {
+      window.location.href = url;
+    }, 1500);
+  } else {
+    window.location.href = url;
+  }
 };
 
 const handleContactSubmit = (event) => {
