@@ -5,7 +5,12 @@
 @tailwind utilities;
 
 * {
+  box-sizing: border-box;
   scroll-behavior: smooth;
+}
+
+html {
+  overflow-x: hidden;
 }
 
 body {
@@ -13,6 +18,12 @@ body {
   background: #030407;
   color: white;
   font-family: Inter, system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
 }
 .grid-bg {
   background-image:
@@ -37,4 +48,20 @@ body {
   background: rgba(10, 13, 22, .72);
   backdrop-filter: blur(18px);
   border: 1px solid rgba(255,255,255,.09);
+}
+
+@keyframes heroSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(18px) scale(.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.hero-slide-in {
+  animation: heroSlideIn .45s ease both;
 }
