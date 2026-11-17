@@ -1,67 +1,123 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 * {
   box-sizing: border-box;
-  scroll-behavior: smooth;
 }
 
 html {
+  scroll-behavior: smooth;
   overflow-x: hidden;
+  color-scheme: dark;
 }
 
 body {
   margin: 0;
-  background: #030407;
-  color: white;
-  font-family: Inter, system-ui, sans-serif;
+  background-color: #090D16;
+  color: #F8FAFC;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 img {
   display: block;
   max-width: 100%;
 }
-.grid-bg {
-  background-image:
-    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-  background-size: 52px 52px;
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
 }
-.card {
-  background: linear-gradient(180deg, rgba(15,18,28,.82), rgba(7,9,15,.86));
-  border: 1px solid rgba(255,255,255,.09);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+::-webkit-scrollbar-track {
+  background: #090D16;
 }
-.text-gradient {
-  background: linear-gradient(90deg, #2f7cff, #8c3dff, #b657ff);
-  -webkit-background-clip: text;
-  color: transparent;
+::-webkit-scrollbar-thumb {
+  background: #1E293B;
+  border-radius: 4px;
 }
-.btn-gradient {
-  background: linear-gradient(90deg, #226cff, #8c37ff);
-}
-.glass {
-  background: rgba(10, 13, 22, .72);
-  backdrop-filter: blur(18px);
-  border: 1px solid rgba(255,255,255,.09);
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
 }
 
-@keyframes heroSlideIn {
+/* Architectural surfaces */
+.surface-card {
+  background: linear-gradient(180deg, rgba(22, 29, 44, 0.8) 0%, rgba(13, 18, 28, 0.9) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+}
+
+.surface-card-interactive {
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.24s ease,
+              box-shadow 0.24s ease;
+}
+
+.surface-card-interactive:hover {
+  transform: translateY(-3px);
+  border-color: rgba(99, 102, 241, 0.45);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.7),
+              0 0 24px -6px rgba(99, 102, 241, 0.28),
+              inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* Focus and active accessibility */
+:focus-visible {
+  outline: 2px solid #6366F1;
+  outline-offset: 3px;
+}
+
+/* Touch targets guarantee */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Animations */
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateX(18px) scale(.985);
+    transform: scale(0.96);
   }
-
   to {
     opacity: 1;
-    transform: translateX(0) scale(1);
+    transform: scale(1);
   }
 }
 
-.hero-slide-in {
-  animation: heroSlideIn .45s ease both;
+.animate-fadeIn {
+  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* Subtle slow star bloom/glow animation - ultra soft */
+@keyframes starSlowBloom {
+  0%, 100% {
+    filter: drop-shadow(0 0 1px rgba(251, 191, 36, 0.15));
+    opacity: 0.92;
+  }
+  50% {
+    filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.35)) drop-shadow(0 0 6px rgba(251, 191, 36, 0.12));
+    opacity: 1;
+  }
+}
+
+.animate-star-bloom-slow {
+  animation: starSlowBloom 5.5s ease-in-out infinite;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
