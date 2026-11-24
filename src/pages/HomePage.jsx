@@ -10,6 +10,7 @@ import { HeroShowcase } from "../components/HeroShowcase";
 import { PostItNotes } from "../components/PostItNotes";
 import { getStoredContactInfo, getStoredProjects } from "../utils/storage";
 import { useLanguage } from "../context/LanguageContext";
+import { ProjectBadge } from "../components/ProjectBadge";
 
 export function HomePage({ navigate }) {
   const { t, getLocalizedWhatsappLink } = useLanguage();
@@ -136,8 +137,8 @@ export function HomePage({ navigate }) {
                   loading="lazy"
                   className="h-full w-full object-cover transition duration-500 group-hover:scale-105 opacity-90 group-hover:opacity-100"
                 />
-                <div className="absolute top-3 right-3 rounded-full border border-slate-700 bg-slate-950/85 px-2.5 py-0.5 font-mono text-[10px] text-brand-300">
-                  {p.resultMetric}
+                <div className="absolute top-3 right-3 z-10">
+                  <ProjectBadge status={p.resultMetric} size="sm" />
                 </div>
               </div>
 

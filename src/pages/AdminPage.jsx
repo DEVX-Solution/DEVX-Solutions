@@ -28,6 +28,7 @@ import {
 import { WhatsAppIcon } from "../components/WhatsAppIcon";
 import { StarRatingInput } from "../components/StarRatingInput";
 import { StarRatingDisplay } from "../components/StarRatingDisplay";
+import { ProjectBadge } from "../components/ProjectBadge";
 import {
   getStoredProjects,
   saveProjects,
@@ -126,7 +127,7 @@ export function AdminPage({ navigate }) {
     category: "Landing Page",
     categoryFilter: "landing",
     summary: "",
-    resultMetric: "+50% em conversão",
+    resultMetric: "Demonstração",
     img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=900&auto=format&fit=crop",
     tags: "React, Tailwind",
     link: "https://devxsolutions.com.br",
@@ -284,7 +285,7 @@ export function AdminPage({ navigate }) {
       category: "Landing Page",
       categoryFilter: "landing",
       summary: "",
-      resultMetric: "+50% em conversão",
+      resultMetric: "Demonstração",
       img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=900&auto=format&fit=crop",
       tags: "React, Tailwind",
       link: "https://devxsolutions.com.br",
@@ -916,29 +917,63 @@ export function AdminPage({ navigate }) {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-mono text-slate-300 mb-1">
-                        Métrica em Destaque
-                      </label>
-                      <input
-                        type="text"
-                        value={editingProject ? editingProject.resultMetric : newProject.resultMetric}
+                      <div className="flex items-center justify-between mb-1">
+                        <label className="block text-xs font-mono text-slate-300">
+                          Status / Tag do Projeto
+                        </label>
+                        <ProjectBadge
+                          status={editingProject ? editingProject.resultMetric : newProject.resultMetric}
+                          size="sm"
+                        />
+                      </div>
+                      <select
+                        value={
+                          ["Projeto Real", "Demonstração", "Em Desenvolvimento"].includes(
+                            editingProject ? editingProject.resultMetric : newProject.resultMetric
+                          )
+                            ? (editingProject ? editingProject.resultMetric : newProject.resultMetric)
+                            : "custom"
+                        }
                         onChange={(e) => {
                           const val = e.target.value;
+                          const newStatus = val === "custom" ? "Personalizado" : val;
                           if (editingProject) {
                             setEditingProject({
                               ...editingProject,
-                              resultMetric: val,
+                              resultMetric: newStatus,
                             });
                           } else {
                             setNewProject({
                               ...newProject,
-                              resultMetric: val,
+                              resultMetric: newStatus,
                             });
                           }
                         }}
-                        placeholder="Ex: +180% em orçamentos"
                         className="w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-xs text-white focus:border-brand-500 focus:outline-none"
-                      />
+                      >
+                        <option value="Projeto Real">🟢 Projeto Real (Cliente)</option>
+                        <option value="Demonstração">🟡 Demonstração (Modelo)</option>
+                        <option value="Em Desenvolvimento">🔵 Em Desenvolvimento</option>
+                        <option value="custom">✏️ Outro (Personalizado)</option>
+                      </select>
+                      {!["Projeto Real", "Demonstração", "Em Desenvolvimento"].includes(
+                        editingProject ? editingProject.resultMetric : newProject.resultMetric
+                      ) && (
+                        <input
+                          type="text"
+                          value={editingProject ? editingProject.resultMetric : newProject.resultMetric}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            if (editingProject) {
+                              setEditingProject({ ...editingProject, resultMetric: val });
+                            } else {
+                              setNewProject({ ...newProject, resultMetric: val });
+                            }
+                          }}
+                          placeholder="Digite o status customizado..."
+                          className="mt-2 w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-xs text-white focus:border-brand-500 focus:outline-none"
+                        />
+                      )}
                     </div>
                   </div>
 
@@ -1184,6 +1219,7 @@ export function AdminPage({ navigate }) {
                             <span className="font-mono text-[10px] text-brand-300">
                               [{p.category}]
                             </span>
+                            <ProjectBadge status={p.resultMetric} size="sm" />
                             {editingProject && editingProject.id === p.id && (
                               <span className="rounded bg-amber-500/20 px-1.5 py-0.5 text-[9px] font-mono font-bold text-amber-300 border border-amber-500/30">
                                 Editando

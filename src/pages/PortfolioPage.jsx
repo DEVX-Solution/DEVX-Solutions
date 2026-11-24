@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { ExternalLink, ArrowRight } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 import { getStoredProjects } from "../utils/storage";
+import { ProjectBadge } from "../components/ProjectBadge";
 
 export function PortfolioPage({ navigate }) {
   const { t } = useLanguage();
@@ -89,8 +90,8 @@ export function PortfolioPage({ navigate }) {
                   loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-85 group-hover:opacity-100"
                 />
-                <div className="absolute top-3.5 right-3.5 rounded-full border border-slate-700 bg-slate-950/90 px-3 py-1 font-mono text-[11px] font-semibold text-brand-300 backdrop-blur-sm">
-                  {p.resultMetric}
+                <div className="absolute top-3.5 right-3.5 z-10">
+                  <ProjectBadge status={p.resultMetric} />
                 </div>
               </div>
 
