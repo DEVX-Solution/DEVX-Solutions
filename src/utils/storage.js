@@ -161,7 +161,7 @@ export const addProject = (project) => {
     tags: Array.isArray(project.tags)
       ? project.tags
       : (project.tags || "React, Tailwind").split(",").map((s) => s.trim()),
-    link: project.link || "https://devxsolutions.com.br",
+    link: project.link ? project.link.trim() : "",
   };
   const updated = [newItem, ...current];
   saveProjects(updated);

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { ExternalLink, ArrowRight } from "lucide-react";
+import { ExternalLink, ArrowRight, Clock } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 import { getStoredProjects } from "../utils/storage";
 import { ProjectBadge } from "../components/ProjectBadge";
 
 export function PortfolioPage({ navigate }) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [filter, setFilter] = useState("all");
   const [storedProjects, setStoredProjects] = useState(getStoredProjects);
 
@@ -38,7 +38,20 @@ export function PortfolioPage({ navigate }) {
       ? projects
       : projects.filter((p) => (p.categoryFilter || "").toLowerCase() === filter.toLowerCase());
 
+  const isDevProject = (p) => {
+    const status = (p.resultMetric || "").toLowerCase();
+    const hasNoLink = !p.link || p.link.trim() === "" || p.link === "#";
+    return (
+      status.includes("desenvolvimento") ||
+      status.includes("em breve") ||
+      status.includes("development") ||
+      status.includes("desarrollo") ||
+      hasNoLink
+    );
+  };
+
   const openExternal = (url) => {
+    if (!url || url.trim() === "" || url === "#") return;
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
@@ -129,13 +142,27 @@ export function PortfolioPage({ navigate }) {
                       ))}
                     </div>
 
-                    <button
-                      type="button"
-                      onClick={() => openExternal(p.link)}
-                      className="touch-target inline-flex items-center gap-1.5 font-mono text-xs font-bold text-brand-400 hover:text-brand-300 transition-colors"
-                    >
-                      {pageText.visitProject || "Acessar"} <ExternalLink size={14} />
-                    </button>
+                    {isDevProject(p) ? (
+                      <span
+                        className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-slate-500 cursor-default select-none py-1"
+                        title="Projeto em desenvolvimento - disponível em breve"
+                      >
+                        <Clock size={13} className="text-cyan-400/90" />
+                        {language === "en"
+                          ? "Coming Soon"
+                          : language === "es"
+                          ? "Próximamente"
+                          : "Em Breve"}
+                      </span>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => openExternal(p.link)}
+                        className="touch-target inline-flex items-center gap-1.5 font-mono text-xs font-bold text-brand-400 hover:text-brand-300 transition-colors"
+                      >
+                        {pageText.visitProject || "Acessar"} <ExternalLink size={14} />
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

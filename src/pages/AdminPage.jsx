@@ -130,7 +130,7 @@ export function AdminPage({ navigate }) {
     resultMetric: "Demonstração",
     img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=900&auto=format&fit=crop",
     tags: "React, Tailwind",
-    link: "https://devxsolutions.com.br",
+    link: "",
   });
 
   // Edit project state
@@ -288,7 +288,7 @@ export function AdminPage({ navigate }) {
       resultMetric: "Demonstração",
       img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=900&auto=format&fit=crop",
       tags: "React, Tailwind",
-      link: "https://devxsolutions.com.br",
+      link: "",
     });
     showNotify("Novo projeto adicionado ao portfólio!");
   };
@@ -1093,12 +1093,21 @@ export function AdminPage({ navigate }) {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-mono text-slate-300 mb-1">
-                      Link do Site / Demonstração
-                    </label>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="block text-xs font-mono text-slate-300">
+                        Link do Site / Demonstração
+                      </label>
+                      {((editingProject ? editingProject.resultMetric : newProject.resultMetric) || "")
+                        .toLowerCase()
+                        .includes("desenvolvimento") && (
+                        <span className="text-[10px] font-mono text-cyan-400 font-medium">
+                          (Opcional - Em Desenvolvimento)
+                        </span>
+                      )}
+                    </div>
                     <input
-                      type="url"
-                      value={editingProject ? editingProject.link : newProject.link}
+                      type="text"
+                      value={editingProject ? (editingProject.link || "") : (newProject.link || "")}
                       onChange={(e) => {
                         const val = e.target.value;
                         if (editingProject) {
@@ -1107,9 +1116,22 @@ export function AdminPage({ navigate }) {
                           setNewProject({ ...newProject, link: val });
                         }
                       }}
-                      placeholder="https://..."
-                      className="w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-xs text-white focus:border-brand-500 focus:outline-none"
+                      placeholder={
+                        ((editingProject ? editingProject.resultMetric : newProject.resultMetric) || "")
+                          .toLowerCase()
+                          .includes("desenvolvimento")
+                          ? "Em desenvolvimento (pode deixar vazio até publicar)"
+                          : "https://seusite.com.br"
+                      }
+                      className="w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-xs text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none"
                     />
+                    {((editingProject ? editingProject.resultMetric : newProject.resultMetric) || "")
+                      .toLowerCase()
+                      .includes("desenvolvimento") && (
+                      <p className="mt-1 text-[11px] text-slate-400">
+                        💡 Sites em desenvolvimento não abrem links externos e exibem a tag <strong>"Em Breve"</strong> nos cards.
+                      </p>
+                    )}
                   </div>
 
                   <div>

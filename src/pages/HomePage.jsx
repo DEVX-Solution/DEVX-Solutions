@@ -4,6 +4,7 @@ import {
   ExternalLink,
   ChevronRight,
   Check,
+  Clock,
 } from "lucide-react";
 import { WhatsAppIcon } from "../components/WhatsAppIcon";
 import { HeroShowcase } from "../components/HeroShowcase";
@@ -13,7 +14,7 @@ import { useLanguage } from "../context/LanguageContext";
 import { ProjectBadge } from "../components/ProjectBadge";
 
 export function HomePage({ navigate }) {
-  const { t, getLocalizedWhatsappLink } = useLanguage();
+  const { t, language, getLocalizedWhatsappLink } = useLanguage();
   const [contact, setContact] = useState(getStoredContactInfo);
   const [storedProjects, setStoredProjects] = useState(getStoredProjects);
 
@@ -34,7 +35,20 @@ export function HomePage({ navigate }) {
     });
   }, [storedProjects, t.projects]);
 
+  const isDevProject = (p) => {
+    const status = (p.resultMetric || "").toLowerCase();
+    const hasNoLink = !p.link || p.link.trim() === "" || p.link === "#";
+    return (
+      status.includes("desenvolvimento") ||
+      status.includes("em breve") ||
+      status.includes("development") ||
+      status.includes("desarrollo") ||
+      hasNoLink
+    );
+  };
+
   const openExternal = (url) => {
+    if (!url || url.trim() === "" || url === "#") return;
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
@@ -169,13 +183,27 @@ export function HomePage({ navigate }) {
                     ))}
                   </div>
 
-                  <button
-                    type="button"
-                    onClick={() => openExternal(p.link)}
-                    className="touch-target inline-flex items-center gap-1 font-mono text-xs font-semibold text-brand-400 hover:text-brand-300"
-                  >
-                    {t.home.seeLive} <ExternalLink size={12} />
-                  </button>
+                  {isDevProject(p) ? (
+                    <span
+                      className="inline-flex items-center gap-1 font-mono text-xs font-semibold text-slate-500 cursor-default select-none py-0.5"
+                      title="Projeto em desenvolvimento - disponível em breve"
+                    >
+                      <Clock size={12} className="text-cyan-400/90" />
+                      {language === "en"
+                        ? "Coming Soon"
+                        : language === "es"
+                        ? "Próximamente"
+                        : "Em Breve"}
+                    </span>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => openExternal(p.link)}
+                      className="touch-target inline-flex items-center gap-1 font-mono text-xs font-semibold text-brand-400 hover:text-brand-300"
+                    >
+                      {t.home.seeLive} <ExternalLink size={12} />
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
