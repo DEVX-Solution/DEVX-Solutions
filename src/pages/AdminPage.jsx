@@ -22,6 +22,8 @@ import {
   Shield,
   Phone,
   Pencil,
+  Upload,
+  Image as ImageIcon,
 } from "lucide-react";
 import { WhatsAppIcon } from "../components/WhatsAppIcon";
 import { StarRatingInput } from "../components/StarRatingInput";
@@ -42,6 +44,51 @@ import {
   saveContactInfo,
   resetToDefaults,
 } from "../utils/storage";
+
+// Helper para comprimir e otimizar imagens enviadas pelo usuário do PC
+const compressImageFile = (file, maxWidth = 1200, maxHeight = 800, quality = 0.85) => {
+  return new Promise((resolve, reject) => {
+    if (!file || !file.type.startsWith("image/")) {
+      reject(new Error("Arquivo inválido. Selecione uma imagem (PNG, JPG, WebP ou GIF)."));
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      if (file.type === "image/svg+xml") {
+        resolve(e.target.result);
+        return;
+      }
+
+      const img = new Image();
+      img.onload = () => {
+        let width = img.width;
+        let height = img.height;
+
+        if (width > maxWidth || height > maxHeight) {
+          const ratio = Math.min(maxWidth / width, maxHeight / height);
+          width = Math.round(width * ratio);
+          height = Math.round(height * ratio);
+        }
+
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+
+        const isPng = file.type === "image/png";
+        const outputType = isPng && file.size < 500 * 1024 ? "image/png" : "image/jpeg";
+        const dataUrl = canvas.toDataURL(outputType, quality);
+        resolve(dataUrl);
+      };
+      img.onerror = () => reject(new Error("Falha ao carregar a imagem."));
+      img.src = e.target.result;
+    };
+    reader.onerror = () => reject(new Error("Erro ao ler o arquivo selecionado."));
+    reader.readAsDataURL(file);
+  });
+};
 
 export function AdminPage({ navigate }) {
   // Auth state
@@ -87,6 +134,46 @@ export function AdminPage({ navigate }) {
 
   // Edit project state
   const [editingProject, setEditingProject] = useState(null);
+  const [imageUploadLoading, setImageUploadLoading] = useState(false);
+
+  const processAndSetImage = async (file) => {
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      showNotify("Selecione um arquivo de imagem válido (PNG, JPG, WebP)", "error");
+      return;
+    }
+    try {
+      setImageUploadLoading(true);
+      const dataUrl = await compressImageFile(file);
+      if (editingProject) {
+        setEditingProject((prev) => ({ ...prev, img: dataUrl }));
+      } else {
+        setNewProject((prev) => ({ ...prev, img: dataUrl }));
+      }
+      showNotify("Foto do computador carregada com sucesso!", "success");
+    } catch (err) {
+      console.error(err);
+      showNotify("Erro ao processar imagem: " + err.message, "error");
+    } finally {
+      setImageUploadLoading(false);
+    }
+  };
+
+  const handleImageFileUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      processAndSetImage(file);
+    }
+    e.target.value = "";
+  };
+
+  const handleImageDrop = (e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files?.[0];
+    if (file) {
+      processAndSetImage(file);
+    }
+  };
 
   const showNotify = (msg, type = "success") => {
     setNotification({ msg, type });
@@ -181,7 +268,15 @@ export function AdminPage({ navigate }) {
     }
     const updated = addProject({
       ...newProject,
-      tags: newProject.tags.split(",").map((s) => s.trim()),
+      img:
+        newProject.img ||
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=900&auto=format&fit=crop",
+      tags:
+        typeof newProject.tags === "string"
+          ? newProject.tags.split(",").map((s) => s.trim()).filter(Boolean)
+          : Array.isArray(newProject.tags)
+          ? newProject.tags
+          : [],
     });
     setProjects(updated);
     setNewProject({
@@ -241,6 +336,9 @@ export function AdminPage({ navigate }) {
 
     const updated = updateProject(editingProject.id, {
       ...editingProject,
+      img:
+        editingProject.img ||
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=900&auto=format&fit=crop",
       tags: tagsArray,
     });
     setProjects(updated);
@@ -844,24 +942,119 @@ export function AdminPage({ navigate }) {
                     </div>
                   </div>
 
-                  <div>
-                    <label className="block text-xs font-mono text-slate-300 mb-1">
-                      URL da Imagem de Capa
-                    </label>
-                    <input
-                      type="url"
-                      value={editingProject ? editingProject.img : newProject.img}
-                      onChange={(e) => {
-                        const val = e.target.value;
-                        if (editingProject) {
-                          setEditingProject({ ...editingProject, img: val });
-                        } else {
-                          setNewProject({ ...newProject, img: val });
+                  {/* Imagem de Capa do Projeto (Upload do PC ou URL) */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="block text-xs font-mono text-slate-300">
+                        Foto / Imagem de Capa *
+                      </label>
+                      {(editingProject ? editingProject.img : newProject.img) && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (editingProject) {
+                              setEditingProject({ ...editingProject, img: "" });
+                            } else {
+                              setNewProject({ ...newProject, img: "" });
+                            }
+                          }}
+                          className="text-[11px] text-rose-400 hover:text-rose-300 hover:underline transition"
+                        >
+                          Limpar foto
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Pré-visualização da imagem atual */}
+                    {(editingProject ? editingProject.img : newProject.img) ? (
+                      <div className="relative aspect-[16/9] max-h-44 w-full overflow-hidden rounded-lg border border-slate-700 bg-slate-950 group">
+                        <img
+                          src={editingProject ? editingProject.img : newProject.img}
+                          alt="Prévia da capa"
+                          className="h-full w-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-slate-950/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 backdrop-blur-[2px]">
+                          <label
+                            htmlFor="admin-file-upload-input"
+                            className="cursor-pointer rounded-lg bg-brand-600 px-3 py-1.5 text-xs font-bold text-white shadow hover:bg-brand-500 transition"
+                          >
+                            Trocar foto do PC
+                          </label>
+                        </div>
+                        <div className="absolute bottom-2 left-2 rounded bg-slate-950/80 px-2 py-0.5 text-[10px] font-mono text-emerald-400 border border-slate-800 backdrop-blur-sm">
+                          ✓ Imagem selecionada
+                        </div>
+                      </div>
+                    ) : null}
+
+                    {/* Upload do PC (Drag & Drop e Clique) */}
+                    <div
+                      onDragOver={(e) => e.preventDefault()}
+                      onDrop={handleImageDrop}
+                      className="rounded-lg border-2 border-dashed border-slate-700 hover:border-brand-500 bg-slate-900/60 hover:bg-brand-950/20 p-4 transition text-center"
+                    >
+                      <input
+                        id="admin-file-upload-input"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageFileUpload}
+                        disabled={imageUploadLoading}
+                        className="hidden"
+                      />
+                      <label
+                        htmlFor="admin-file-upload-input"
+                        className="cursor-pointer flex flex-col items-center justify-center space-y-1.5"
+                      >
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-500/10 text-brand-400">
+                          {imageUploadLoading ? (
+                            <RefreshCw size={18} className="animate-spin" />
+                          ) : (
+                            <Upload size={18} />
+                          )}
+                        </div>
+                        <span className="text-xs font-bold text-white">
+                          {imageUploadLoading
+                            ? "Otimizando imagem..."
+                            : "Clique aqui para subir foto do seu computador"}
+                        </span>
+                        <span className="text-[11px] text-slate-400">
+                          Ou arraste e solte o arquivo de foto aqui (PNG, JPG, WebP)
+                        </span>
+                      </label>
+                    </div>
+
+                    {/* Ou Link da Internet */}
+                    <div className="pt-1">
+                      <label className="block text-[11px] font-mono text-slate-400 mb-1">
+                        Ou digite o link de uma imagem da internet:
+                      </label>
+                      <input
+                        type="text"
+                        value={
+                          editingProject
+                            ? editingProject.img?.startsWith("data:")
+                              ? ""
+                              : editingProject.img || ""
+                            : newProject.img?.startsWith("data:")
+                            ? ""
+                            : newProject.img || ""
                         }
-                      }}
-                      placeholder="https://..."
-                      className="w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-xs text-white focus:border-brand-500 focus:outline-none"
-                    />
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          if (editingProject) {
+                            setEditingProject({ ...editingProject, img: val });
+                          } else {
+                            setNewProject({ ...newProject, img: val });
+                          }
+                        }}
+                        placeholder={
+                          (editingProject ? editingProject.img : newProject.img)?.startsWith("data:")
+                            ? "Foto carregada do computador ativa (cole link para substituir)"
+                            : "https://images.unsplash.com/..."
+                        }
+                        className="w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-xs text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none"
+                      />
+                    </div>
                   </div>
 
                   <div>
